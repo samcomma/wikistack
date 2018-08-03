@@ -1,5 +1,11 @@
 const app = require('./app');
 const port = process.env.PORT || 3000;
-const { db } = require('./models');
+const models  = require('./models');
 
-app.listen(port, ()=> console.log(`listening to port ${port}`));
+const init = async () => {
+    await models.User.sync()
+    await models.Page.sync()
+    app.listen(port, ()=> console.log(`listening to port ${port}`));
+};
+
+init();
