@@ -1,11 +1,18 @@
+const http = require('http');
 const app = require('./app');
+const server = http.createServer(app)
 const port = process.env.PORT || 3000;
-const models  = require('./models');
+const {db, Page, User}  = require('./models');
+
+
+
+
 
 const init = async () => {
-    await models.User.sync()
-    await models.Page.sync()
-    app.listen(port, ()=> console.log(`listening to port ${port}`));
+    // await User.sync()
+    // await Page.sync()
+    await db.sync()
+    server.listen(port, ()=> console.log(`listening to port ${port}`));
 };
 
 init();
